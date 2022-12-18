@@ -80,3 +80,44 @@ $(document).ready(() => {
       $(".animate").removeClass("show");
     }, 300);
   });
+// карусель с компаниями, бесконечная
+
+  $(".workers-carousel.first").not(".slick-initialized").slick(workersSettings);
+  $(".workers-carousel.second")
+    .not(".slick-initialized")
+    .slick(workersSettings);
+
+  // карусель с отзывами
+
+  let settings = {
+    dots: false,
+    dotsClass: ".reviews-nav",
+    edgeFriction: 0.35,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    arrows: true,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+    appendArrows: ".reviews-nav",
+    prevArrow:
+      '<button id="prev" type="button" class="slick-prev slick-arrow"></button>',
+    nextArrow:
+      '<button id="next" type="button" class="slick-next slick-arrow"></button>',
+  };
+
+  $(".reviews-carousel").on("init", function (event, slick) {
+    $(".reviews-counter").append(
+      `<span class="reviews-counter-active">01</span>/0${slick.slideCount} `
+    );
+  });
+
+  $(".reviews-carousel").slick(settings);
+
+  $(".reviews-carousel").on(
+    "afterChange",
+    function (event, slick, currentSlide, nextSlide) {
+      $(".reviews-counter-active").html(`0${currentSlide + 1}`);
+    }
+  );
+});
